@@ -1,15 +1,18 @@
 <template>
-  <div>
-
-  </div>
+  <my-sidebar/>
 </template>
 
 <script>
-export default {
 
+import MySidebar from "@/components/MySidebar.vue";
+
+export default {
+  components: {
+    MySidebar,
+  }
 }
 </script>
 
-<style scoped>
+<style lang="scss">
 
 </style>
