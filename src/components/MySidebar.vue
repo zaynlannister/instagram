@@ -31,6 +31,7 @@ export default {
     padding: 8px 12px 20px;
     box-sizing: border-box;
     height: 100vh;
+    background-color: #fff;
 
     &__logo {
       padding: 25px 12px;
