@@ -8,7 +8,7 @@
 <script>
 
 import MySidebar from "@/components/MySidebar.vue";
-import PostPresentation from "@/components/PostPresentation.vue";
+import PostPresentation from "@/components/PostContent.vue";
 import { responseFromServer } from "@/posts";
 
 export default {

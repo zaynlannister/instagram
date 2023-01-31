@@ -1,15 +1,15 @@
 <template>
-  <div class="presentation">
-    <div class="container">
-      <div class="presentation-wrapper">
-        <div class="presentation-section">
-          <div class="presentation-publications">
-            <my-posts
-                :posts="posts"
-            />
+  <div>
+    <div class="presentation">
+      <div class="container">
+        <div class="presentation-wrapper">
+          <div class="presentation-section">
+            <div class="presentation-publications">
+              <my-posts :posts="posts"/>
+            </div>
           </div>
+          <account-recommendation/>
         </div>
-        <account-recommendation/>
       </div>
     </div>
   </div>
