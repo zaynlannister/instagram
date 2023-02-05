@@ -5,7 +5,10 @@
         <div class="presentation-wrapper">
           <div class="presentation-section">
             <div class="presentation-publications">
-              <my-posts :posts="posts"/>
+              <my-posts
+                :posts="posts"
+                @comment="this.$emit('comment', $event)"
+              />
             </div>
           </div>
           <account-recommendation/>

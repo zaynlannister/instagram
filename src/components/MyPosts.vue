@@ -30,13 +30,21 @@
       </div>
       <div class="user-post__comments-quantity comments-quantity-${this.id} comment-btn">Посмотреть все комментарии <span>0</span></div>
       <div class="user-post__date">20 часов назад</div>
+
+      <post-comments :post="post"/>
     </div>
   </div>
 </template>
 
 <script>
 
+import PostComments from "@/components/PostComments.vue";
+
 export default {
+  components: {
+    PostComments
+  },
+
   props: {
     posts: Object
   },
@@ -50,7 +58,7 @@ export default {
       post.likes--
     },
 
-    toggleLike(id, el) {
+    toggleLike(id) {
       const likeBtn = this.$refs.likeButton[id];
       const dislikeBtn = this.$refs.dislikeButton[id];
 
@@ -61,7 +69,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 
 .user-post {
   font-size: 14px;
@@ -71,7 +79,7 @@ export default {
   padding: 8px 0;
   margin-bottom: 25px;
 
-  &__details, &__actions, &__info, &__comments-quantity, &__date {
+  &__actions, &__info, &__comments-quantity, &__date {
     padding: 0 12px;
   }
 
@@ -164,6 +172,185 @@ export default {
 
   &.active {
     display: block;
+  }
+}
+
+input {
+  outline: none;
+  border: none;
+}
+
+.active {
+  display: block;
+}
+
+.comments-container {
+  display: flex;
+  z-index: 99;
+  position: absolute;
+  background-color: #ffffff;
+  width: 65%;
+  height: 90%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+
+  &::after {
+    z-index: -1;
+    content: '';
+    background-color: rgba(0, 0, 0, 0.31);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+}
+
+.comments__image {
+  position: relative;
+  width: 70%;
+  height: 100%;
+  background-color: #000;
+
+  & img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    padding: 20px 0;
+  }
+}
+
+.comments {
+  width: 30%;
+  background-color: #fff;
+
+  &__user-details {
+    border-bottom: 1px solid rgb(219, 219, 219);
+    padding: 10px 12px;
+  }
+
+  &-wrapper {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    border-top: 1px solid rgb(219, 219, 219);
+  }
+
+  &__action {
+    width: 30%;
+    position: absolute;
+    bottom: 0;
+
+    &-emoji {
+      padding-right: 6px;
+      margin-top: 3px;
+
+      & svg {
+        cursor: pointer;
+      }
+    }
+
+    &-input {
+      width: 100%;
+
+      & input {
+        box-sizing: border-box;
+        padding: 0 10px;
+        width: 100%;
+      }
+    }
+
+    &-button button {
+      font-size: 14px;
+    }
+  }
+
+  &__content {
+    height: 87%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    font-size: 15px;
+    padding: 0 12px;
+
+    &-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    & button {
+      color: rgb(142, 142, 142);
+    }
+
+    &-comment {
+      display: flex;
+      padding: 15px 0;
+    }
+
+    &-image {
+      margin-right: 10px;
+
+      & img {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+      }
+    }
+  }
+
+  &-like svg {
+    cursor: pointer;
+  }
+
+  &-user {
+    &__info {
+      display: flex;
+      font-size: 13px;
+      color: rgb(142, 142, 142);
+      margin: 5px 0 8px;
+    }
+
+    &__data {
+      margin-right: 10px;
+    }
+
+    &__name {
+      margin-right: 10px;
+      font-weight: 500;
+      float: left;
+    }
+
+    &__text {
+      word-break: break-all;
+    }
+
+    &__likes {
+      margin-right: 10px;
+      font-weight: bold;
+    }
+
+    &__reply-answers {
+      position: relative;
+      font-size: 13px;
+      color: rgb(142, 142, 142);
+      padding-left: 40px;
+
+      &::before {
+        position: absolute;
+        content: '';
+        width: 24px;
+        height: 1px;
+        background-color: rgb(142, 142, 142);
+        left: 0;
+        top: 7px;
+      }
+    }
   }
 }
 </style>

@@ -1,31 +1,36 @@
 <template>
-  <my-sidebar/>
-  <post-presentation
-    :posts="posts"
-  />
+  <div>
+    <my-sidebar/>
+    <post-content
+        :posts="posts"
+    />
+  </div>
 </template>
 
 <script>
 
 import MySidebar from "@/components/MySidebar.vue";
-import PostPresentation from "@/components/PostContent.vue";
+import PostContent from "@/components/PostContent.vue";
 import { responseFromServer } from "@/posts";
 
 export default {
   components: {
     MySidebar,
-    PostPresentation
+    PostContent
   },
 
   data() {
     return {
-      posts: responseFromServer
+      posts: responseFromServer,
     }
   }
 }
 </script>
 
 <style lang="scss">
+* {
+  box-sizing: border-box;
+}
 
 a {
   color: rgb(199, 199, 199);
