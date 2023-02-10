@@ -6,8 +6,9 @@
           <div class="presentation-section">
             <div class="presentation-publications">
               <my-posts
-                :posts="posts"
-                @comment="this.$emit('comment', $event)"
+                v-for="post in posts"
+                :key="post.id"
+                :post="post"
               />
             </div>
           </div>
@@ -20,8 +21,10 @@
 
 <script>
 
-import MyPosts from "./MyPosts.vue";
+import MyPosts from "./MyPost.vue";
 import AccountRecommendation from "./AccountRecommendation.vue";
+
+import { responseFromServer } from "@/posts";
 
 export default {
   components: {
@@ -29,8 +32,10 @@ export default {
     AccountRecommendation
   },
 
-  props: {
-    posts: Object
+  data() {
+    return {
+      posts: responseFromServer
+    }
   }
 }
 </script>

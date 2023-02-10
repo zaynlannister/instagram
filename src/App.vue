@@ -1,9 +1,7 @@
 <template>
   <div>
     <my-sidebar/>
-    <post-content
-        :posts="posts"
-    />
+    <post-content/>
   </div>
 </template>
 
@@ -11,18 +9,11 @@
 
 import MySidebar from "@/components/MySidebar.vue";
 import PostContent from "@/components/PostContent.vue";
-import { responseFromServer } from "@/posts";
 
 export default {
   components: {
     MySidebar,
     PostContent
-  },
-
-  data() {
-    return {
-      posts: responseFromServer,
-    }
   }
 }
 </script>
@@ -52,5 +43,4 @@ a {
   font-size: 12px;
   color: #0095f6;
 }
-
 </style>

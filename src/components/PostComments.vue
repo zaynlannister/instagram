@@ -1,5 +1,11 @@
 <template>
   <div :class="{ active: isActive }" class="wrapper">
+    <div @click="this.$emit('close')" class="close-btn">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+        <path d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z"/>
+        <path d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z"/>
+      </svg>
+    </div>
     <div class="comments-container">
       <div class="comments__image">
         <img :src="post.src" alt="image">
@@ -60,13 +66,8 @@
 <script>
 export default {
   props: {
-    post: Object
-  },
-
-  data() {
-    return {
-      isActive: false
-    }
+    post: Object,
+    isActive: Boolean
   }
 }
 </script>
@@ -75,6 +76,21 @@ export default {
 input {
   outline: none;
   border: none;
+}
+
+.close-btn {
+  position: fixed;
+  z-index: 100;
+  right: 37px;
+  top: 27px;
+
+  & svg {
+    display: inline-block;
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+    fill: #ffff;
+  }
 }
 
 .wrapper {
@@ -88,7 +104,7 @@ input {
 .comments-container {
   display: flex;
   z-index: 99;
-  position: absolute;
+  position: fixed;
   background-color: #ffffff;
   width: 65%;
   height: 90%;
@@ -101,7 +117,7 @@ input {
   &::after {
     z-index: -1;
     content: '';
-    background-color: rgba(0, 0, 0, 0.31);
+    background-color: rgba(0, 0, 0, 0.63);
     position: fixed;
     top: 0;
     left: 0;
