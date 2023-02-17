@@ -1,12 +1,11 @@
 <template>
   <div>
-    <my-sidebar/>
-    <post-content/>
+    <my-sidebar />
+    <post-content />
   </div>
 </template>
 
 <script>
-
 import MySidebar from "@/components/MySidebar.vue";
 import PostContent from "@/components/PostContent.vue";
 

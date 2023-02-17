@@ -1,55 +1,96 @@
 <template>
   <div class="sidebar">
     <div class="sidebar__logo">
-      <img src="@/assets/instagram_logo.png" alt="logo">
+      <img
+        src="@/assets/instagram_logo.png"
+        alt="logo"
+      >
     </div>
     <div class="sidebar__nav">
-      <div @click="toggleNav($event.target)" data-id="nav-link" class="sidebar__nav-link">
-        <svg aria-label="Главная" class="_ab6-" color="#262626" fill="#262626" height="24" role="img" viewBox="0 0 24 24" width="24"><path d="M22 23h-6.001a1 1 0 0 1-1-1v-5.455a2.997 2.997 0 1 0-5.993 0V22a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V11.543a1.002 1.002 0 0 1 .31-.724l10-9.543a1.001 1.001 0 0 1 1.38 0l10 9.543a1.002 1.002 0 0 1 .31.724V22a1 1 0 0 1-1 1Z"></path></svg>
-        <a data-id="nav-link" href="#">Главная</a>
-      </div>
-      <div @click="toggleNav($event.target)" data-id="nav-link" class="sidebar__nav-link">
-        <a data-id="nav-link" href="#">Поисковый запрос</a>
-      </div>
-      <div @click="toggleNav($event.target)" data-id="nav-link" class="sidebar__nav-link">
-        <a data-id="nav-link" href="#">Интересные</a>
-      </div>
-      <div @click="toggleNav($event.target)" data-id="nav-link" class="sidebar__nav-link">
-        <a data-id="nav-link" href="#">Reels</a>
-      </div>
-      <div @click="toggleNav($event.target)" data-id="nav-link" class="sidebar__nav-link">
-        <a data-id="nav-link" href="#">Сообщения</a>
-      </div>
-      <div @click="toggleNav($event.target)" data-id="nav-link" class="sidebar__nav-link">
-        <a data-id="nav-link" href="#">Уведомления</a>
-      </div>
-      <div @click="toggleNav($event.target)" data-id="nav-link" class="sidebar__nav-link">
-        <a data-id="nav-link" href="#">Создать</a>
-      </div>
-      <div @click="toggleNav($event.target)" data-id="nav-link" class="sidebar__nav-link">
-        <a data-id="nav-link" href="#">Профиль</a>
-      </div>
-      <div @click="toggleNav($event.target)" data-id="nav-link" class="sidebar__nav-link">
-        <a data-id="nav-link" href="#">Ещё</a>
+      <div
+        v-for="item in navList"
+        :key="item.label"
+        @click="activePage = item.label"
+        class="sidebar__nav-link"
+        :class="{
+          active: item.label === activePage
+        }"
+      >
+        <SvgIcon
+          v-if="item.icon"
+          :name="item.icon"
+        />
+        <a
+          data-id="nav-link"
+          :href="item.route"
+        >{{ item.label }}</a>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {
-  methods: {
-    toggleNav(clickedItem) {
-      console.log(clickedItem)
-      if (clickedItem.getAttribute("nav-link")) {
-        const navLinks = document.querySelectorAll(".sidebar__nav-link");
+import SvgIcon from "@/components/SvgIcon.vue"
 
-        navLinks.forEach(item => {
-          console.log('sd')
-        })
-      }
+export default {
+  components: {
+    SvgIcon
+  },
+
+  data() {
+    return {
+      activePage: "Главная",
+      navList: [
+        {
+          label: "Главная",
+          route: "#",
+          icon: "comment",
+        },
+
+        {
+          label: "Поисковый запрос",
+          route: "#",
+          icon: "comment"
+        },
+
+        {
+          label: "Интересное",
+          route: "#",
+          icon: "comment"
+        },
+
+        {
+          label: "Сообщения",
+          route: "#",
+          icon: "comment"
+        },
+
+        {
+          label: "Уведомления",
+          route: "#",
+          icon: "comment"
+        },
+
+        {
+          label: "Создать",
+          route: "#",
+          icon: "comment"
+        },
+
+        {
+          label: "Профиль",
+          route: "#",
+          icon: "comment"
+        },
+
+        {
+          label: "Еще",
+          route: "#",
+          icon: "comment"
+        },
+      ]
     }
-  }
+  },
 }
 </script>
 
@@ -87,6 +128,12 @@ export default {
         &:hover {
           background-color: #fafafa;
         }
+      }
+
+      svg {
+        width: 28px;
+        height: 28px;
+        margin-right: 10px;
       }
 
       a {

@@ -12,7 +12,7 @@
               />
             </div>
           </div>
-          <account-recommendation/>
+          <account-recommendation />
         </div>
       </div>
     </div>
@@ -20,7 +20,6 @@
 </template>
 
 <script>
-
 import MyPosts from "./MyPost.vue";
 import AccountRecommendation from "./AccountRecommendation.vue";
 

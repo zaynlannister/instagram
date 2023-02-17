@@ -2,46 +2,82 @@
   <div class="presentation-recommendation">
     <div class="rec__account">
       <img src="@/assets/user__image.png">
-      <div class="rec__account-name">username</div>
+      <div class="rec__account-name">
+        username
+      </div>
       <div class="rec__account-button">
-        <button class="btn">Переключиться</button>
+        <button class="btn">
+          Переключиться
+        </button>
       </div>
     </div>
-    <div class="rec__text">Рекомендации для вас</div>
+    <div class="rec__text">
+      Рекомендации для вас
+    </div>
     <div class="presentation-container">
       <div class="rec__user">
-        <div class="rec__user-image"><img src="@/assets/user__image.png"></div>
-        <div class="rec__user-name">username</div>
+        <div class="rec__user-image">
+          <img src="@/assets/user__image.png">
+        </div>
+        <div class="rec__user-name">
+          username
+        </div>
         <div class="rec__user-subscribe">
-          <button class="btn">Подписаться</button>
+          <button class="btn">
+            Подписаться
+          </button>
         </div>
       </div>
       <div class="rec__user">
-        <div class="rec__user-image"><img src="@/assets/user__image.png"></div>
-        <div class="rec__user-name">username</div>
+        <div class="rec__user-image">
+          <img src="@/assets/user__image.png">
+        </div>
+        <div class="rec__user-name">
+          username
+        </div>
         <div class="rec__user-subscribe">
-          <button class="btn">Подписаться</button>
+          <button class="btn">
+            Подписаться
+          </button>
         </div>
       </div>
       <div class="rec__user">
-        <div class="rec__user-image"><img src="@/assets/user__image.png"></div>
-        <div class="rec__user-name">username</div>
+        <div class="rec__user-image">
+          <img src="@/assets/user__image.png">
+        </div>
+        <div class="rec__user-name">
+          username
+        </div>
         <div class="rec__user-subscribe">
-          <button class="btn">Подписаться</button>
+          <button class="btn">
+            Подписаться
+          </button>
         </div>
       </div>
       <div class="rec__user">
-        <div class="rec__user-image"><img src="@/assets/user__image.png"></div>
-        <div class="rec__user-name">username</div>
+        <div class="rec__user-image">
+          <img src="@/assets/user__image.png">
+        </div>
+        <div class="rec__user-name">
+          username
+        </div>
         <div class="rec__user-subscribe">
-          <button class="btn">Подписаться</button>
+          <button class="btn">
+            Подписаться
+          </button>
         </div>
       </div>
       <div class="rec__user">
-        <div class="rec__user-image"><img src="@/assets/user__image.png"></div>
-        <div class="rec__user-name">username</div>
+        <div class="rec__user-image">
+          <img src="@/assets/user__image.png">
+        </div>
+        <div class="rec__user-name">
+          username
+        </div>
         <div class="rec__user-subscribe">
-          <button class="btn">Подписаться</button>
+          <button class="btn">
+            Подписаться
+          </button>
         </div>
       </div>
     </div>
