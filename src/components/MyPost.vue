@@ -8,26 +8,7 @@
         <div class="user-post__username">
           {{ post.username }}
         </div>
-        <svg
-          class="user-post__details-additionally"
-          fill="#262626"
-          height="24"
-          role="img"
-          viewBox="0 0 24 24"
-          width="24"
-        ><circle
-          cx="12"
-          cy="12"
-          r="1.5"
-        /><circle
-          cx="6"
-          cy="12"
-          r="1.5"
-        /><circle
-          cx="18"
-          cy="12"
-          r="1.5"
-        /></svg>
+        <SvgIcon class="user-post__details-additionally" name="dots" />
       </div>
       <div class="user-post__content">
         <img
@@ -130,8 +111,6 @@ export default {
     if (this.$likedPosts.has(this.post.id)) {
       this.isLiked = true
     }
-
-    console.log(this.$likedPosts);
   }
 }
 </script>
@@ -162,6 +141,8 @@ export default {
     align-items: center;
 
     &-additionally {
+      width: 24px;
+      height: 24px;
       margin-left: auto;
       cursor: pointer;
     }

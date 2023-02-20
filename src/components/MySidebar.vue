@@ -44,49 +44,49 @@ export default {
         {
           label: "Главная",
           route: "#",
-          icon: "comment",
+          icon: "home",
         },
 
         {
           label: "Поисковый запрос",
           route: "#",
-          icon: "comment"
+          icon: "search"
         },
 
         {
           label: "Интересное",
           route: "#",
-          icon: "comment"
+          icon: "compass"
         },
 
         {
           label: "Сообщения",
           route: "#",
-          icon: "comment"
+          icon: "message"
         },
 
         {
           label: "Уведомления",
           route: "#",
-          icon: "comment"
+          icon: "like"
         },
 
         {
           label: "Создать",
           route: "#",
-          icon: "comment"
+          icon: "plus"
         },
 
         {
           label: "Профиль",
           route: "#",
-          icon: "comment"
+          icon: "profile"
         },
 
         {
           label: "Еще",
           route: "#",
-          icon: "comment"
+          icon: "burger"
         },
       ]
     }
@@ -131,8 +131,8 @@ export default {
       }
 
       svg {
-        width: 28px;
-        height: 28px;
+        width: 24px;
+        height: 24px;
         margin-right: 10px;
       }
 
