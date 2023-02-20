@@ -44,7 +44,7 @@
           <b><span>{{ post.username }}</span></b> {{ post.description }}
         </div>
       </div>
-      <div class="user-post__comments-quantity comments-quantity-${this.id} comment-btn">
+      <div class="user-post__comments-quantity comment-btn">
         Посмотреть все комментарии <span>0</span>
       </div>
       <div class="user-post__date">
