@@ -79,7 +79,8 @@ export default {
   data() {
     return {
       isLiked: false,
-      showComments: false
+      showComments: false,
+      postData: this.post
     }
   },
 
@@ -88,10 +89,10 @@ export default {
       this.isLiked = !this.isLiked
 
       if (this.isLiked) {
-        this.post.likes++
+        this.$emit("update:post.likes", this.postData.likes++);
         this.$storeLikedPost(this.post.id)
       } else {
-        this.post.likes--
+        this.$emit("update:post.likes", this.postData.likes--);
         this.$removeLikedPost(this.post.id)
       }
     },
