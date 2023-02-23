@@ -22,64 +22,16 @@
         </div>
 
         <div class="comments__content">
-          <div class="comments__content-comment">
-            <div class="comments__content-image">
-              <img src="src/assets/user__image.png">
-            </div>
-            <div class="comments__content-wrapper">
-              <div class="comments-user">
-                <div class="comments-user__details">
-                  <div class="comments-user__name">
-                    {{ post.username }}
-                  </div>
-                  <div class="comments-user__text">
-                    some text
-                  </div>
-                </div>
-                <div class="comments-user__info">
-                  <div class="comments-user__data">
-                    2 ч.
-                  </div>
-                  <div class="comments-user__likes">
-                    Нравится: <span>{{ post.likes }}</span>
-                  </div>
-                  <div class="comments-user__reply-btn">
-                    <button class="btn">
-                      Ответить
-                    </button>
-                  </div>
-                </div>
-                <div class="comments-user__reply-answers">
-                  <button class="btn">
-                    Посмотреть ответы (0)
-                  </button>
-                </div>
-              </div>
-              <div class="comments-like">
-                <SvgIcon name="like" />
-              </div>
-            </div>
-          </div>
+          <MyComment
+            v-for="comment in comments"
+            :key="comment.username"
+            :comment="comment"
+          />
         </div>
 
-        <div class="comments__action">
-          <div class="comments-wrapper">
-            <div class="comments__action-emoji">
-              <SvgIcon name="smile" />
-            </div>
-            <div class="comments__action-input">
-              <input
-                type="text"
-                placeholder="Добавьте комментарий..."
-              >
-            </div>
-            <div class="comments__action-button">
-              <button class="btn">
-                Опубликовать
-              </button>
-            </div>
-          </div>
-        </div>
+        <CommentForm
+          @comment="addComment"
+        />
       </div>
     </div>
   </div>
@@ -87,24 +39,37 @@
 
 <script>
 import SvgIcon from "@/components/SvgIcon.vue";
+import CommentForm from "@/components/CommentForm.vue";
+import MyComment from "@/components/MyComment.vue";
+
 export default {
   components: {
+    MyComment,
+    CommentForm,
     SvgIcon
   },
 
   props: {
     post: Object,
-    showComments: Boolean
+    showComments: Boolean,
+    comments: Object
+  },
+
+  methods: {
+    addComment(comment) {
+      const commentData = {
+        username: "username",
+        text: comment,
+        likes: 0
+      }
+
+      this.$emit("comment", commentData);
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-input {
-  outline: none;
-  border: none;
-}
-
 .close-btn {
   position: fixed;
   z-index: 100;
@@ -184,42 +149,6 @@ input {
     display: flex;
     align-items: center;
     border-top: 1px solid rgb(219, 219, 219);
-  }
-
-  &-like svg {
-    width: 14px;
-    height: 14px;
-  }
-
-  &__action {
-    width: 30%;
-    position: absolute;
-    bottom: 0;
-
-    &-emoji {
-      padding-right: 6px;
-      margin-top: 3px;
-
-      & svg {
-        width: 24px;
-        height: 24px;
-        cursor: pointer;
-      }
-    }
-
-    &-input {
-      width: 100%;
-
-      & input {
-        box-sizing: border-box;
-        padding: 0 10px;
-        width: 100%;
-      }
-    }
-
-    &-button button {
-      font-size: 14px;
-    }
   }
 
   &__content {

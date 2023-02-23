@@ -35,6 +35,12 @@ export default {
     return {
       posts: responseFromServer
     }
+  },
+
+  methods: {
+    check(n) {
+      console.log(n)
+    }
   }
 }
 </script>

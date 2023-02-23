@@ -44,8 +44,8 @@
           <b><span>{{ post.username }}</span></b> {{ post.description }}
         </div>
       </div>
-      <div class="user-post__comments-quantity comment-btn">
-        Посмотреть все комментарии <span>0</span>
+      <div @click="toggleComment" class="user-post__comments-quantity comment-btn">
+        Посмотреть все комментарии <span>{{ comments.length }}</span>
       </div>
       <div class="user-post__date">
         20 часов назад
@@ -54,7 +54,9 @@
     <post-comments
       :post="post"
       :show-comments="showComments"
+      :comments="comments"
       @close="toggleComment"
+      @comment="pushComment"
     />
   </div>
 </template>
@@ -78,6 +80,7 @@ export default {
 
   data() {
     return {
+      comments: [],
       isLiked: false,
       showComments: false,
       postData: this.post
@@ -86,31 +89,35 @@ export default {
 
   methods: {
     toggleLike() {
-      this.isLiked = !this.isLiked
+      this.isLiked = !this.isLiked;
 
       if (this.isLiked) {
         this.$emit("update:post.likes", this.postData.likes++);
-        this.$storeLikedPost(this.post.id)
+        this.$storeLikedPost(this.post.id);
       } else {
         this.$emit("update:post.likes", this.postData.likes--);
-        this.$removeLikedPost(this.post.id)
+        this.$removeLikedPost(this.post.id);
       }
     },
 
     toggleComment() {
       this.showComments = !this.showComments;
+    },
+
+    pushComment(comment) {
+      this.comments.push(comment);
     }
   },
 
   computed: {
     currentLikeIcon() {
-      return this.isLiked ? "likeFilled" : "like"
+      return this.isLiked ? "likeFilled" : "like";
     }
   },
 
   mounted() {
     if (this.$likedPosts.has(this.post.id)) {
-      this.isLiked = true
+      this.isLiked = true;
     }
   }
 }
