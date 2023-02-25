@@ -9,6 +9,7 @@
                 v-for="post in posts"
                 :key="post.id"
                 :post="post"
+                @likePost="likePost"
               />
             </div>
           </div>
@@ -38,8 +39,15 @@ export default {
   },
 
   methods: {
-    check(n) {
-      console.log(n)
+    likePost(post, isLiked) {
+      const postId = this.posts.findIndex(item => item.id === post.id);
+      const needPost = this.posts[postId];
+
+      if (isLiked) {
+        needPost.likes++
+      } else {
+        needPost.likes--
+      }
     }
   }
 }

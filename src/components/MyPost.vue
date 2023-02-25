@@ -55,8 +55,10 @@
       :post="post"
       :show-comments="showComments"
       :comments="comments"
+      @closeWindow="closeWindow"
       @close="toggleComment"
       @comment="pushComment"
+      @likeComment="likeComment"
     />
   </div>
 </template>
@@ -82,20 +84,23 @@ export default {
     return {
       comments: [],
       isLiked: false,
-      showComments: false,
-      postData: this.post
+      showComments: false
     }
   },
 
   methods: {
+    closeWindow() {
+      this.showComments = false;
+    },
+
     toggleLike() {
       this.isLiked = !this.isLiked;
 
       if (this.isLiked) {
-        this.$emit("update:post.likes", this.postData.likes++);
+        this.$emit("likePost", this.post, this.isLiked);
         this.$storeLikedPost(this.post.id);
       } else {
-        this.$emit("update:post.likes", this.postData.likes--);
+        this.$emit("likePost", this.post, this.isLiked);
         this.$removeLikedPost(this.post.id);
       }
     },
@@ -106,6 +111,21 @@ export default {
 
     pushComment(comment) {
       this.comments.push(comment);
+    },
+
+    likeComment(comment) {
+      const commentId = this.comments.findIndex(item => item.id === comment.id);
+      const needComment = this.comments[commentId];
+
+      if (comment.isLiked) {
+        needComment.likes--
+
+        needComment.isLiked = false
+      } else {
+        needComment.likes++
+
+        needComment.isLiked = true
+      }
     }
   },
 
@@ -124,7 +144,6 @@ export default {
 </script>
 
 <style lang="scss">
-
 .user-post {
   font-size: 14px;
   background-color: #fff;
@@ -240,31 +259,6 @@ input {
 
 .active {
   display: block;
-}
-
-.comments-container {
-  display: flex;
-  z-index: 99;
-  position: absolute;
-  background-color: #ffffff;
-  width: 65%;
-  height: 90%;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-
-  &::after {
-    z-index: -1;
-    content: '';
-    background-color: rgba(0, 0, 0, 0.31);
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-  }
 }
 
 .comments__image {

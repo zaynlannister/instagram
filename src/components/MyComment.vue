@@ -34,7 +34,10 @@
           </div>
         </div>
         <div class="comments-like">
-          <SvgIcon name="like" />
+          <SvgIcon
+            @click="this.$emit('likeComment', comment)"
+            :name="currentLikeIcon"
+          />
         </div>
       </div>
     </div>
@@ -50,6 +53,12 @@ export default {
 
   components: {
     SvgIcon
+  },
+
+  computed: {
+    currentLikeIcon() {
+      return this.comment.isLiked ? "likeFilled" : "like";
+    }
   }
 }
 </script>

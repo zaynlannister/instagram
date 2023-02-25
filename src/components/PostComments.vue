@@ -26,6 +26,7 @@
             v-for="comment in comments"
             :key="comment.username"
             :comment="comment"
+            @likeComment="likeComment"
           />
         </div>
 
@@ -58,12 +59,18 @@ export default {
   methods: {
     addComment(comment) {
       const commentData = {
+        id: Date.now(),
         username: "username",
         text: comment,
-        likes: 0
+        likes: 0,
+        isLiked: false
       }
 
       this.$emit("comment", commentData);
+    },
+    
+    likeComment(comment) {
+      this.$emit("likeComment", comment)
     }
   }
 }
