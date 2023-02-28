@@ -10,6 +10,8 @@
                 :key="post.id"
                 :post="post"
                 @likePost="likePost"
+                @comment="pushComment"
+                @likeComment="likeComment"
               />
             </div>
           </div>
@@ -40,7 +42,7 @@ export default {
 
   methods: {
     likePost(post, isLiked) {
-      const postId = this.posts.findIndex(item => item.id === post.id);
+      const postId = this.getIndexOfArray(this.posts, post.id);
       const needPost = this.posts[postId];
 
       if (isLiked) {
@@ -48,6 +50,43 @@ export default {
       } else {
         needPost.likes--
       }
+    },
+
+    pushComment(comment, postId) {
+      const needPostIndex = this.getIndexOfArray(this.posts, postId);
+      this.posts[needPostIndex].comments.push(comment);
+    },
+
+    likeComment(comment, postId) {
+      const needPost = this.posts.find(post => post.id === postId);
+      const needComment = needPost.comments.find(item => item.id === comment.id);
+
+      if (comment.isLiked) {
+        needComment.likes--
+        needComment.isLiked = false
+      } else {
+        needComment.likes++
+        needComment.isLiked = true
+      }
+    },
+
+    getIndexOfArray(array, id) {
+      return array.findIndex(item => item.id === id);
+    }
+  },
+
+  mounted() {
+    const storedData = localStorage.getItem("likedPosts");
+    if (storedData) {
+      const arrayOfData = JSON.parse(storedData);
+
+      this.posts.forEach(post => {
+        const needPost = arrayOfData.find(item => item.id === post.id);
+
+        if (needPost) {
+          post.likes = needPost.likes;
+        }
+      })
     }
   }
 }

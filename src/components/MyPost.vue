@@ -45,7 +45,7 @@
         </div>
       </div>
       <div @click="toggleComment" class="user-post__comments-quantity comment-btn">
-        Посмотреть все комментарии <span>{{ comments.length }}</span>
+        Посмотреть все комментарии <span>{{ post.comments.length }}</span>
       </div>
       <div class="user-post__date">
         20 часов назад
@@ -54,7 +54,7 @@
     <post-comments
       :post="post"
       :show-comments="showComments"
-      :comments="comments"
+      :comments="post.comments"
       @closeWindow="closeWindow"
       @close="toggleComment"
       @comment="pushComment"
@@ -82,7 +82,6 @@ export default {
 
   data() {
     return {
-      comments: [],
       isLiked: false,
       showComments: false
     }
@@ -98,10 +97,10 @@ export default {
 
       if (this.isLiked) {
         this.$emit("likePost", this.post, this.isLiked);
-        this.$storeLikedPost(this.post.id);
+        this.$storeLikedPost(this.post);
       } else {
         this.$emit("likePost", this.post, this.isLiked);
-        this.$removeLikedPost(this.post.id);
+        this.$removeLikedPost(this.post);
       }
     },
 
@@ -110,22 +109,11 @@ export default {
     },
 
     pushComment(comment) {
-      this.comments.push(comment);
+      this.$emit("comment", comment, this.post.id);
     },
 
     likeComment(comment) {
-      const commentId = this.comments.findIndex(item => item.id === comment.id);
-      const needComment = this.comments[commentId];
-
-      if (comment.isLiked) {
-        needComment.likes--
-
-        needComment.isLiked = false
-      } else {
-        needComment.likes++
-
-        needComment.isLiked = true
-      }
+      this.$emit("likeComment", comment, this.post.id);
     }
   },
 
@@ -136,8 +124,15 @@ export default {
   },
 
   mounted() {
-    if (this.$likedPosts.has(this.post.id)) {
-      this.isLiked = true;
+    const storedData = localStorage.getItem("likedPosts");
+    if (storedData) {
+      const arrayOfData = JSON.parse(storedData);
+
+      arrayOfData.forEach(item => {
+        if (item.id === this.post.id) {
+          this.isLiked = true;
+        }
+      })
     }
   }
 }
