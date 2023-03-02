@@ -59,6 +59,7 @@
       @close="toggleComment"
       @comment="pushComment"
       @likeComment="likeComment"
+      @deleteComment="deleteComment"
     />
   </div>
 </template>
@@ -114,6 +115,10 @@ export default {
 
     likeComment(comment) {
       this.$emit("likeComment", comment, this.post.id);
+    },
+
+    deleteComment(commentId) {
+      this.$emit("deleteComment", this.post.id, commentId);
     }
   },
 

@@ -12,6 +12,7 @@
                 @likePost="likePost"
                 @comment="pushComment"
                 @likeComment="likeComment"
+                @deleteComment="deleteComment"
               />
             </div>
           </div>
@@ -68,6 +69,14 @@ export default {
         needComment.likes++
         needComment.isLiked = true
       }
+    },
+
+    deleteComment(postId, commentId) {
+      const needPostIndex = this.getIndexOfArray(this.posts, postId);
+      const needPost = this.posts[needPostIndex];
+
+      const commentIndex = needPost.comments.findIndex(comment => comment.id === commentId);
+      needPost.comments.splice(commentIndex, 1);
     },
 
     getIndexOfArray(array, id) {

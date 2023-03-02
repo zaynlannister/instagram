@@ -27,6 +27,7 @@
             :key="comment.username"
             :comment="comment"
             @likeComment="likeComment"
+            @deleteComment="deleteComment"
           />
         </div>
 
@@ -70,7 +71,11 @@ export default {
     },
     
     likeComment(comment) {
-      this.$emit("likeComment", comment)
+      this.$emit("likeComment", comment);
+    },
+
+    deleteComment(commentId) {
+      this.$emit("deleteComment", commentId);
     }
   }
 }

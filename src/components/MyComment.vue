@@ -39,6 +39,14 @@
             :name="currentLikeIcon"
           />
         </div>
+        <div class="comments__details">
+          <SvgIcon @click="toggleDeleteButton" name="dots"/>
+        </div>
+        <div v-if="deleteBtnVisibility" class="comments__delete">
+          <div class="comments__delete-button">
+            <button @click="deleteComment">Удалить</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -55,6 +63,22 @@ export default {
     SvgIcon
   },
 
+  data() {
+    return {
+      deleteBtnVisibility: false
+    }
+  },
+
+  methods: {
+    toggleDeleteButton() {
+      this.deleteBtnVisibility = !this.deleteBtnVisibility;
+    },
+
+    deleteComment() {
+      this.$emit("deleteComment", this.comment.id);
+    }
+  },
+
   computed: {
     currentLikeIcon() {
       return this.comment.isLiked ? "likeFilled" : "like";
@@ -65,9 +89,51 @@ export default {
 
 <style lang="scss" scoped>
 .comments {
+  &__content-comment {
+    position: relative;
+
+    &:hover {
+      .comments__details {
+        display: block;
+      }
+    }
+  }
+
   &-like svg {
     width: 14px;
     height: 14px;
+  }
+
+  &__details {
+    display: none;
+    position: absolute;
+    right: 0;
+    bottom: 10px;
+
+    & svg {
+      width: 26px;
+      height: 26px;
+      opacity: .7;
+      cursor: pointer;
+    }
+  }
+
+  &__delete {
+    position: absolute;
+    bottom: -8px;
+    right: 0;
+
+    &-button button {
+      cursor: pointer;
+      color: #3a3a3a;
+      border: none;
+      background-color: #eeeeee;
+      padding: 5px 10px;
+
+      &:hover {
+        color: red;
+      }
+    }
   }
 }
 </style>
