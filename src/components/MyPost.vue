@@ -57,7 +57,7 @@
       :comments="post.comments"
       @closeWindow="closeWindow"
       @close="toggleComment"
-      @comment="pushComment"
+      @comment="addComment"
       @likeComment="likeComment"
       @deleteComment="deleteComment"
     />
@@ -109,7 +109,7 @@ export default {
       this.showComments = !this.showComments;
     },
 
-    pushComment(comment) {
+    addComment(comment) {
       this.$emit("comment", comment, this.post.id);
     },
 
