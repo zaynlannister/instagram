@@ -109,16 +109,16 @@ export default {
       this.showComments = !this.showComments;
     },
 
-    addComment(comment) {
-      this.$emit("comment", comment, this.post.id);
-    },
-
     likeComment(comment) {
       this.$emit("likeComment", comment, this.post.id);
     },
 
-    deleteComment(commentId) {
-      this.$emit("deleteComment", this.post.id, commentId);
+    addComment(comment) {
+      this.$emit("comment", comment, this.post.id);
+    },
+
+    deleteComment(comment) {
+      this.$emit("deleteComment", this.post.id, comment);
     }
   },
 

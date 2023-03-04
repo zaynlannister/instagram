@@ -75,7 +75,7 @@ export default {
     },
 
     deleteComment() {
-      this.$emit("deleteComment", this.comment.id);
+      this.$emit("deleteComment", this.comment);
     }
   },
 

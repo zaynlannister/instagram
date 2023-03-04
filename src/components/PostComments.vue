@@ -74,8 +74,8 @@ export default {
       this.$emit("likeComment", comment);
     },
 
-    deleteComment(commentId) {
-      this.$emit("deleteComment", commentId);
+    deleteComment(comment) {
+      this.$emit("deleteComment", comment);
     }
   }
 }

@@ -56,6 +56,21 @@ export default {
     pushComment(comment, postId) {
       const needPostIndex = this.getIndexOfArray(this.posts, postId);
       this.posts[needPostIndex].comments.push(comment);
+
+      this.$storeComment({
+        comment: comment,
+        postId: postId
+      })
+    },
+
+    deleteComment(postId, comment) {
+      const needPostIndex = this.getIndexOfArray(this.posts, postId);
+      const needPost = this.posts[needPostIndex];
+
+      const commentIndex = needPost.comments.findIndex(comment => comment.id === comment.id);
+      needPost.comments.splice(commentIndex, 1);
+
+      this.$removeComment(comment);
     },
 
     likeComment(comment, postId) {
@@ -69,34 +84,47 @@ export default {
         needComment.likes++
         needComment.isLiked = true
       }
-    },
 
-    deleteComment(postId, commentId) {
-      const needPostIndex = this.getIndexOfArray(this.posts, postId);
-      const needPost = this.posts[needPostIndex];
-
-      const commentIndex = needPost.comments.findIndex(comment => comment.id === commentId);
-      needPost.comments.splice(commentIndex, 1);
+      this.$storeComment({
+        comment: comment,
+        postId: postId,
+      })
     },
 
     getIndexOfArray(array, id) {
       return array.findIndex(item => item.id === id);
+    },
+
+    syncLikedPosts() {
+      const storedData = localStorage.getItem("likedPosts");
+      if (storedData) {
+        const arrayOfData = JSON.parse(storedData);
+
+        this.posts.forEach(post => {
+          const needPost = arrayOfData.find(item => item.id === post.id);
+
+          if (needPost) {
+            post.likes = needPost.likes;
+          }
+        })
+      }
+    },
+
+    syncComments() {
+      const storedComments = this.$comments;
+
+      if (storedComments) {
+        storedComments.forEach(item => {
+          const needPostIndex = this.getIndexOfArray(this.posts, item.postId);
+          this.posts[needPostIndex].comments.push(item.comment);
+        })
+      }
     }
   },
 
   mounted() {
-    const storedData = localStorage.getItem("likedPosts");
-    if (storedData) {
-      const arrayOfData = JSON.parse(storedData);
-
-      this.posts.forEach(post => {
-        const needPost = arrayOfData.find(item => item.id === post.id);
-
-        if (needPost) {
-          post.likes = needPost.likes;
-        }
-      })
-    }
+    this.syncLikedPosts();
+    this.syncComments();
   }
 }
 </script>
