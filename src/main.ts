@@ -33,15 +33,15 @@ if (likedPosts) {
 
 app.config.globalProperties.$comments = [];
 
-app.config.globalProperties.$storeComment = function (comment: any) {
+app.config.globalProperties.$storeComment = function (commentData: any) {
     // @ts-ignore
-    const commentIndex = this.$comments.findIndex(item => item.comment.id === comment.comment.id);
+    const commentIndex = this.$comments.findIndex(item => item.comment.id === commentData.comment.id);
 
     // repeating comment check
     if (commentIndex !== -1) {
-        this.$comments.splice(commentIndex, 1, comment);
+        this.$comments.splice(commentIndex, 1, commentData);
     } else {
-        this.$comments.push(comment);
+        this.$comments.push(commentData);
     }
 
     localStorage.setItem("comments", JSON.stringify(this.$comments));
