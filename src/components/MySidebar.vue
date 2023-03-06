@@ -27,18 +27,22 @@
       </div>
     </div>
   </div>
+  <PostForm v-if="postFormActive"/>
 </template>
 
 <script>
 import SvgIcon from "@/components/SvgIcon.vue"
+import PostForm from "@/components/PostForm.vue";
 
 export default {
   components: {
+    PostForm,
     SvgIcon
   },
 
   data() {
     return {
+      postFormActive: false,
       activePage: "Главная",
       navList: [
         {
@@ -91,6 +95,26 @@ export default {
       ]
     }
   },
+
+  methods: {
+    showPostForm() {
+      this.postFormActive = true;
+    },
+
+    closePostForm() {
+      this.postFormActive = false;
+    }
+  },
+
+  watch: {
+    activePage(label) {
+      if (label === "Создать") {
+        this.showPostForm();
+      } else {
+        this.closePostForm();
+      }
+    }
+  }
 }
 </script>
 

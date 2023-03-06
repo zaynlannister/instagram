@@ -6,7 +6,7 @@
           <SvgIcon name="smile" />
         </div>
         <div class="comments__action-input">
-          <input v-model="value" type="text" placeholder="Добавьте комментарий...">
+          <input @keydown.enter="addComment" v-model="value" type="text" placeholder="Добавьте комментарий...">
         </div>
         <div class="comments__action-button">
           <button @click="addComment" class="btn">Опубликовать</button>
