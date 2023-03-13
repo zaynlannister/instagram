@@ -1,7 +1,8 @@
 <template>
   <div>
     <my-sidebar />
-    <post-content />
+<!--    <post-content />-->
+    <router-view></router-view>
   </div>
 </template>
 

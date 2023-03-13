@@ -7,8 +7,9 @@
       >
     </div>
     <div class="sidebar__nav">
-      <div
+      <router-link
         v-for="item in navList"
+        :to="item.route"
         :key="item.label"
         @click="activePage = item.label"
         class="sidebar__nav-link"
@@ -20,99 +21,72 @@
           v-if="item.icon"
           :name="item.icon"
         />
-        <a
-          data-id="nav-link"
-          :href="item.route"
-        >{{ item.label }}</a>
-      </div>
+        <label>{{ item.label }}</label>
+      </router-link>
     </div>
   </div>
-  <PostForm v-if="postFormActive"/>
 </template>
 
 <script>
 import SvgIcon from "@/components/SvgIcon.vue"
-import PostForm from "@/components/PostForm.vue";
 
 export default {
   components: {
-    PostForm,
     SvgIcon
   },
 
   data() {
     return {
-      postFormActive: false,
       activePage: "Главная",
       navList: [
         {
           label: "Главная",
-          route: "#",
+          route: "/",
           icon: "home",
         },
 
         {
           label: "Поисковый запрос",
-          route: "#",
+          route: "/search",
           icon: "search"
         },
 
         {
           label: "Интересное",
-          route: "#",
+          route: "/explore",
           icon: "compass"
         },
 
         {
           label: "Сообщения",
-          route: "#",
+          route: "/messages",
           icon: "message"
         },
 
         {
           label: "Уведомления",
-          route: "#",
+          route: "/notifications",
           icon: "like"
         },
 
         {
           label: "Создать",
-          route: "#",
+          route: "/create",
           icon: "plus"
         },
 
         {
           label: "Профиль",
-          route: "#",
+          route: "/profile",
           icon: "profile"
         },
 
         {
           label: "Еще",
-          route: "#",
+          route: "/more",
           icon: "burger"
         },
       ]
-    }
-  },
-
-  methods: {
-    showPostForm() {
-      this.postFormActive = true;
-    },
-
-    closePostForm() {
-      this.postFormActive = false;
-    }
-  },
-
-  watch: {
-    activePage(label) {
-      if (label === "Создать") {
-        this.showPostForm();
-      } else {
-        this.closePostForm();
-      }
     }
   }
 }
@@ -142,7 +116,7 @@ export default {
       display: flex;
       flex-direction: column;
       height: 100vh;
-      & div {
+      & a {
         cursor: pointer;
         padding: 12px;
         margin: 5px 0;

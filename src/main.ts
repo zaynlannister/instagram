@@ -4,8 +4,7 @@ import App from "./App.vue"
 import "./assets/main.css"
 
 import "virtual:svg-icons-register"
-
-
+import router from "@/router/router";
 
 const app = createApp(App);
 
@@ -60,4 +59,5 @@ if (comments) {
     app.config.globalProperties.$comments = JSON.parse(comments);
 }
 
+app.use(router);
 app.mount("#app");
