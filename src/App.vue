@@ -1,19 +1,16 @@
 <template>
   <div>
     <my-sidebar />
-<!--    <post-content />-->
     <router-view></router-view>
   </div>
 </template>
 
 <script>
 import MySidebar from "@/components/MySidebar.vue";
-import PostContent from "@/components/PostContent.vue";
 
 export default {
   components: {
     MySidebar,
-    PostContent
   }
 }
 </script>

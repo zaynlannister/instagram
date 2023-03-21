@@ -57,9 +57,6 @@
       :comments="post.comments"
       @closeWindow="closeWindow"
       @close="toggleComment"
-      @comment="addComment"
-      @likeComment="likeComment"
-      @deleteComment="deleteComment"
     />
   </div>
 </template>
@@ -67,6 +64,8 @@
 <script>
 import PostComments from "@/components/PostComments.vue";
 import SvgIcon from "@/components/SvgIcon.vue";
+import { mapStores } from "pinia";
+import { usePostStore } from "@/stores/posts";
 
 export default {
   components: {
@@ -93,36 +92,28 @@ export default {
       this.showComments = false;
     },
 
-    toggleLike() {
-      this.isLiked = !this.isLiked;
-
-      if (this.isLiked) {
-        this.$emit("likePost", this.post, this.isLiked);
-        this.$storeLikedPost(this.post);
-      } else {
-        this.$emit("likePost", this.post, this.isLiked);
-        this.$removeLikedPost(this.post);
-      }
-    },
-
     toggleComment() {
       this.showComments = !this.showComments;
     },
 
-    likeComment(comment) {
-      this.$emit("likeComment", comment, this.post.id);
-    },
+    toggleLike() {
+      this.isLiked = !this.isLiked;
 
-    addComment(comment) {
-      this.$emit("comment", comment, this.post.id);
-    },
+      if (this.isLiked) {
+        this.postsStore.like(this.post);
 
-    deleteComment(comment) {
-      this.$emit("deleteComment", this.post.id, comment);
+        this.$storeLikedPost(this.post);
+      } else {
+        this.postsStore.dislike(this.post);
+
+        this.$removeLikedPost(this.post);
+      }
     }
   },
 
   computed: {
+    ...mapStores(usePostStore),
+
     currentLikeIcon() {
       return this.isLiked ? "likeFilled" : "like";
     }

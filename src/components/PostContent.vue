@@ -9,10 +9,6 @@
                 v-for="post in posts"
                 :key="post.id"
                 :post="post"
-                @likePost="likePost"
-                @comment="pushComment"
-                @likeComment="likeComment"
-                @deleteComment="deleteComment"
               />
             </div>
           </div>
@@ -28,69 +24,26 @@ import MyPosts from "./MyPost.vue";
 import AccountRecommendation from "./AccountRecommendation.vue";
 
 import { responseFromServer } from "@/posts";
+import { mapStores } from "pinia";
+import { usePostStore } from "@/stores/posts";
 
 export default {
+  setup() {
+    const posts = usePostStore().postsArray;
+
+    return { posts }
+  },
+
   components: {
     MyPosts,
     AccountRecommendation
   },
 
-  data() {
-    return {
-      posts: responseFromServer
-    }
+  computed: {
+    ...mapStores(usePostStore)
   },
 
   methods: {
-    likePost(post, isLiked) {
-      const postId = this.getIndexOfArray(this.posts, post.id);
-      const needPost = this.posts[postId];
-
-      if (isLiked) {
-        needPost.likes++
-      } else {
-        needPost.likes--
-      }
-    },
-
-    pushComment(comment, postId) {
-      const needPostIndex = this.getIndexOfArray(this.posts, postId);
-      this.posts[needPostIndex].comments.push(comment);
-
-      this.$storeComment({
-        comment: comment,
-        postId: postId
-      })
-    },
-
-    deleteComment(postId, comment) {
-      const needPostIndex = this.getIndexOfArray(this.posts, postId);
-      const needPost = this.posts[needPostIndex];
-
-      const commentIndex = needPost.comments.findIndex(comment => comment.id === comment.id);
-      needPost.comments.splice(commentIndex, 1);
-
-      this.$removeComment(comment);
-    },
-
-    likeComment(comment, postId) {
-      const needPost = this.posts.find(post => post.id === postId);
-      const needComment = needPost.comments.find(item => item.id === comment.id);
-
-      if (comment.isLiked) {
-        needComment.likes--
-        needComment.isLiked = false
-      } else {
-        needComment.likes++
-        needComment.isLiked = true
-      }
-
-      this.$storeComment({
-        comment: comment,
-        postId: postId,
-      })
-    },
-
     getIndexOfArray(array, id) {
       return array.findIndex(item => item.id === id);
     },
@@ -101,10 +54,10 @@ export default {
         const arrayOfData = JSON.parse(storedData);
 
         this.posts.forEach(post => {
-          const needPost = arrayOfData.find(item => item.id === post.id);
+          const requiredPost = arrayOfData.find(item => item.id === post.id);
 
-          if (needPost) {
-            post.likes = needPost.likes;
+          if (requiredPost) {
+            post.likes = requiredPost.likes;
           }
         })
       }

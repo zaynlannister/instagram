@@ -27,7 +27,7 @@
             :key="comment.username"
             :comment="comment"
             @likeComment="likeComment"
-            @deleteComment="deleteComment"
+            @deleteComment="removeComment"
           />
         </div>
 
@@ -43,6 +43,8 @@
 import SvgIcon from "@/components/SvgIcon.vue";
 import CommentForm from "@/components/CommentForm.vue";
 import MyComment from "@/components/MyComment.vue";
+import { mapStores } from "pinia";
+import { usePostStore } from "@/stores/posts";
 
 export default {
   components: {
@@ -57,6 +59,10 @@ export default {
     comments: Object
   },
 
+  computed: {
+    ...mapStores(usePostStore)
+  },
+
   methods: {
     addComment(comment) {
       const commentData = {
@@ -67,15 +73,31 @@ export default {
         isLiked: false
       }
 
-      this.$emit("comment", commentData);
-    },
-    
-    likeComment(comment) {
-      this.$emit("likeComment", comment);
+      this.postsStore.addComment(this.post, commentData);
+
+      this.$storeComment({
+        comment: commentData,
+        postId: this.post.id
+      })
     },
 
-    deleteComment(comment) {
-      this.$emit("deleteComment", comment);
+    removeComment(comment) {
+      this.postsStore.removeComment(this.post, comment);
+
+      this.$removeComment(comment);
+    },
+
+    likeComment(comment) {
+      if (!comment.isLiked) {
+        this.postsStore.likeComment(this.post, comment);
+      } else {
+        this.postsStore.dislikeComment(this.post, comment);
+      }
+
+      this.$storeComment({
+        comment: comment,
+        postId: this.post.id,
+      })
     }
   }
 }
