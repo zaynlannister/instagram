@@ -23,7 +23,6 @@
 import MyPosts from "./MyPost.vue";
 import AccountRecommendation from "./AccountRecommendation.vue";
 
-import { responseFromServer } from "@/posts";
 import { mapStores } from "pinia";
 import { usePostStore } from "@/stores/posts";
 

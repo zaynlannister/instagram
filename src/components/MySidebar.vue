@@ -25,18 +25,33 @@
       </router-link>
     </div>
   </div>
+
+  <my-dialog
+    v-model:show="createFormShow"
+    @closeDialog="routeCreateForm"
+  >
+    <create-form
+        v-if="createFormShow"
+    />
+  </my-dialog>
 </template>
 
 <script>
 import SvgIcon from "@/components/SvgIcon.vue"
+import CreateForm from "@/components/CreateForm.vue";
+import MyDialog from "@/components/MyDialog.vue";
+import router from "@/router/router";
 
 export default {
   components: {
+    MyDialog,
+    CreateForm,
     SvgIcon
   },
 
   data() {
     return {
+      createFormShow: false,
       activePage: "Главная",
       navList: [
         {
@@ -71,7 +86,7 @@ export default {
 
         {
           label: "Создать",
-          route: "/create",
+          route: "/",
           icon: "plus"
         },
 
@@ -87,6 +102,26 @@ export default {
           icon: "burger"
         },
       ]
+    }
+  },
+
+  methods: {
+    showCreateForm() {
+      this.createFormShow = true;
+    },
+
+    routeCreateForm() {
+      this.createFormShow = false;
+      router.push("/")
+      this.activePage = "Главная"
+    }
+  },
+
+  watch: {
+    activePage(label) {
+      if (label === "Создать") {
+        this.showCreateForm();
+      }
     }
   }
 }
