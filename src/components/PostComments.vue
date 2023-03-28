@@ -1,8 +1,5 @@
 <template>
-  <div :class="{ active: showComments }" class="wrapper">
-    <div @click="this.$emit('close')" class="close-btn">
-      <SvgIcon name="close" />
-    </div>
+  <div>
     <div class="comments-container">
       <div class="comments__image">
         <img
@@ -104,52 +101,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.close-btn {
-  position: fixed;
-  z-index: 100;
-  right: 37px;
-  top: 27px;
-
-  & svg {
-    display: inline-block;
-    width: 26px;
-    height: 26px;
-    cursor: pointer;
-    color: #ffff;
-  }
-}
-
-.wrapper {
-  display: none;
-
-  &.active {
-    display: block;
-  }
-}
-
 .comments-container {
   display: flex;
-  z-index: 99;
-  position: fixed;
-  background-color: #ffffff;
+  position: absolute;
   width: 65%;
   height: 90%;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-
-  &::after {
-    z-index: -1;
-    content: '';
-    background-color: rgba(0, 0, 0, 0.63);
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-  }
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .comments__image {

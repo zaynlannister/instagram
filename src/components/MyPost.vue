@@ -24,7 +24,7 @@
           />
         </div>
         <div
-          @click="toggleComment"
+          @click="openCommentWindow"
           class="user-post__comment"
         >
           <SvgIcon name="comment" />
@@ -44,20 +44,25 @@
           <b><span>{{ post.username }}</span></b> {{ post.description }}
         </div>
       </div>
-      <div @click="toggleComment" class="user-post__comments-quantity comment-btn">
+      <div @click="openCommentWindow" class="user-post__comments-quantity comment-btn">
         Посмотреть все комментарии <span>{{ post.comments.length }}</span>
       </div>
       <div class="user-post__date">
         20 часов назад
       </div>
     </div>
-    <post-comments
-      :post="post"
-      :show-comments="showComments"
-      :comments="post.comments"
-      @closeWindow="closeWindow"
-      @close="toggleComment"
-    />
+
+    <my-dialog
+      v-model:show="showComments"
+      @closeDialog="closeCommentMenu"
+    >
+      <post-comments
+          v-if="showComments"
+          :post="post"
+          :comments="post.comments"
+      />
+    </my-dialog>
+
   </div>
 </template>
 
@@ -66,9 +71,11 @@ import PostComments from "@/components/PostComments.vue";
 import SvgIcon from "@/components/SvgIcon.vue";
 import { mapStores } from "pinia";
 import { usePostStore } from "@/stores/posts";
+import MyDialog from "@/components/MyDialog.vue";
 
 export default {
   components: {
+    MyDialog,
     SvgIcon,
     PostComments
   },
@@ -88,12 +95,12 @@ export default {
   },
 
   methods: {
-    closeWindow() {
+    closeCommentMenu() {
       this.showComments = false;
     },
 
-    toggleComment() {
-      this.showComments = !this.showComments;
+    openCommentWindow() {
+      this.showComments = true;
     },
 
     toggleLike() {
