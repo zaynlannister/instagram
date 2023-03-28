@@ -35,6 +35,19 @@ export const usePostStore = defineStore("posts", {
     },
 
     actions: {
+        addPost(mediaUrl: any) {
+            const newPost = {
+                username: "username",
+                id: Date.now(),
+                src: mediaUrl,
+                likes: 0,
+                description: "",
+                comments: []
+            }
+
+            this.postsArray.push(newPost);
+        },
+
         like(post: object) {
             // @ts-ignore
             const requiredPost = this.getPost(post.id);
@@ -49,8 +62,7 @@ export const usePostStore = defineStore("posts", {
             requiredPost.likes--
         },
 
-        addComment(post: object, comment: object) {
-            // @ts-ignore
+        addComment(post: any, comment: any) {
             const requiredPost = this.getPost(post.id);
             // @ts-ignore
             requiredPost.comments.push(comment);

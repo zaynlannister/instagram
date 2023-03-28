@@ -5,7 +5,7 @@
         <div class="presentation-wrapper">
           <div class="presentation-section">
             <div class="presentation-publications">
-              <my-posts
+              <my-post
                 v-for="post in posts"
                 :key="post.id"
                 :post="post"
@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import MyPosts from "./MyPost.vue";
-import AccountRecommendation from "./AccountRecommendation.vue";
+import MyPost from "@/components/MyPost.vue";
+import AccountRecommendation from "@/components/AccountRecommendation.vue";
 
 import { mapStores } from "pinia";
 import { usePostStore } from "@/stores/posts";
@@ -34,7 +34,7 @@ export default {
   },
 
   components: {
-    MyPosts,
+    MyPost,
     AccountRecommendation
   },
 

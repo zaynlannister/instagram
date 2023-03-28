@@ -17,6 +17,8 @@
 <script>
 
 import SvgIcon from "@/components/SvgIcon.vue";
+import { mapStores } from "pinia";
+import { usePostStore } from "@/stores/posts";
 
 export default {
   components: {
@@ -27,10 +29,8 @@ export default {
     createFormShow: Boolean
   },
 
-  data() {
-    return {
-      inputData: ""
-    }
+  computed: {
+    ...mapStores(usePostStore)
   },
 
   methods: {
@@ -38,6 +38,10 @@ export default {
       const file = element.target.files[0];
       const reader = new FileReader();
       reader.readAsDataURL(file);
+
+      reader.onloadend = (event) => {
+        this.postsStore.addPost(reader.result);
+      }
     }
   }
 }
