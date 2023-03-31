@@ -25,10 +25,6 @@ export default {
     SvgIcon
   },
 
-  props: {
-    createFormShow: Boolean
-  },
-
   computed: {
     ...mapStores(usePostStore)
   },
@@ -39,7 +35,7 @@ export default {
       const reader = new FileReader();
       reader.readAsDataURL(file);
 
-      reader.onloadend = (event) => {
+      reader.onloadend = () => {
         this.postsStore.addPost(reader.result);
       }
     }

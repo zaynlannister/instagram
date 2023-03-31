@@ -10,57 +10,6 @@ import { createPinia } from "pinia";
 const pinia = createPinia();
 const app = createApp(App);
 
-// store liked posts
-app.config.globalProperties.$likedPosts = [];
-
-app.config.globalProperties.$storeLikedPost = function (post: any) {
-    this.$likedPosts.push(post);
-    localStorage.setItem("likedPosts", JSON.stringify(this.$likedPosts));
-}
-app.config.globalProperties.$removeLikedPost = function (post: any) {
-    // @ts-ignore
-    const postIndex = this.$likedPosts.findIndex(item => item.id === post.id);
-    this.$likedPosts.splice(postIndex, 1);
-    localStorage.setItem("likedPosts", JSON.stringify(this.$likedPosts));
-}
-
-const likedPosts = localStorage.getItem("likedPosts")
-
-if (likedPosts) {
-    app.config.globalProperties.$likedPosts = JSON.parse(likedPosts);
-}
-
-// store comments
-
-app.config.globalProperties.$comments = [];
-
-app.config.globalProperties.$storeComment = function (commentData: any) {
-    // @ts-ignore
-    const commentIndex = this.$comments.findIndex(item => item.comment.id === commentData.comment.id);
-
-    // repeating comment check
-    if (commentIndex !== -1) {
-        this.$comments.splice(commentIndex, 1, commentData);
-    } else {
-        this.$comments.push(commentData);
-    }
-
-    localStorage.setItem("comments", JSON.stringify(this.$comments));
-}
-
-app.config.globalProperties.$removeComment = function (comment: any) {
-    // @ts-ignore
-    const commentIndex = this.$comments.findIndex(item => item.id === comment.id);
-    this.$comments.splice(commentIndex, 1);
-    localStorage.setItem("comments", JSON.stringify(this.$comments));
-}
-
-const comments = localStorage.getItem("comments");
-
-if (comments) {
-    app.config.globalProperties.$comments = JSON.parse(comments);
-}
-
 app.use(router);
 app.use(pinia);
 app.mount("#app");

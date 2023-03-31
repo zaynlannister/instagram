@@ -71,17 +71,10 @@ export default {
       }
 
       this.postsStore.addComment(this.post, commentData);
-
-      this.$storeComment({
-        comment: commentData,
-        postId: this.post.id
-      })
     },
 
     removeComment(comment) {
       this.postsStore.removeComment(this.post, comment);
-
-      this.$removeComment(comment);
     },
 
     likeComment(comment) {
@@ -90,11 +83,6 @@ export default {
       } else {
         this.postsStore.dislikeComment(this.post, comment);
       }
-
-      this.$storeComment({
-        comment: comment,
-        postId: this.post.id,
-      })
     }
   }
 }

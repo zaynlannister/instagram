@@ -1,4 +1,6 @@
 import { defineStore } from "pinia";
+import {state} from "vue-tsc/out/shared";
+import {watch} from "vue";
 
 export const usePostStore = defineStore("posts", {
     state: () => {
@@ -10,7 +12,8 @@ export const usePostStore = defineStore("posts", {
                     src: "https://img2.akspic.ru/previews/4/8/5/9/6/169584/169584-malenkie_koshmary_2-malo_koshmary-dolgopyatnye_studii-mono_malenkie_koshmary-igra_uzhasov-x750.jpg",
                     likes: 124,
                     description: "замечатльное фото...",
-                    comments: []
+                    comments: [],
+                    isLiked: false
                 },
 
                 {
@@ -19,7 +22,8 @@ export const usePostStore = defineStore("posts", {
                     src: "https://img2.akspic.ru/previews/6/7/5/1/7/171576/171576-oblako-rastenie-gora-dnevnoe_vremya-ekoregion-500x.jpg",
                     likes: 12,
                     description: "ууу",
-                    comments: []
+                    comments: [],
+                    isLiked: false
                 },
 
                 {
@@ -28,7 +32,8 @@ export const usePostStore = defineStore("posts", {
                     src: "https://img2.akspic.ru/previews/1/7/5/1/7/171571/171571-rastitelnost-rastenie-gora-zelenyj-oblako-x750.jpg",
                     likes: 566,
                     description: "spectacular view!",
-                    comments: []
+                    comments: [],
+                    isLiked: false
                 }
             ]
         }
@@ -42,7 +47,8 @@ export const usePostStore = defineStore("posts", {
                 src: mediaUrl,
                 likes: 0,
                 description: "",
-                comments: []
+                comments: [],
+                isLiked: false
             }
 
             this.postsArray.push(newPost);
@@ -53,6 +59,8 @@ export const usePostStore = defineStore("posts", {
             const requiredPost = this.getPost(post.id);
             // @ts-ignore
             requiredPost.likes++
+            // @ts-ignore
+            requiredPost.isLiked = true
         },
 
         dislike(post: object) {
@@ -60,6 +68,8 @@ export const usePostStore = defineStore("posts", {
             const requiredPost = this.getPost(post.id);
             // @ts-ignore
             requiredPost.likes--
+            // @ts-ignore
+            requiredPost.isLiked = false
         },
 
         addComment(post: any, comment: any) {
@@ -102,6 +112,11 @@ export const usePostStore = defineStore("posts", {
 
         getPost(id: number) {
             return this.postsArray.find(item => item.id === id)
+        },
+
+        setNewValue() {
+            // @ts-ignore
+            this.postsArray = JSON.parse(localStorage.getItem("posts"));
         }
     }
 })

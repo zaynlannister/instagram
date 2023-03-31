@@ -89,7 +89,6 @@ export default {
 
   data() {
     return {
-      isLiked: false,
       showComments: false
     }
   },
@@ -104,16 +103,10 @@ export default {
     },
 
     toggleLike() {
-      this.isLiked = !this.isLiked;
-
-      if (this.isLiked) {
+      if (!this.post.isLiked) {
         this.postsStore.like(this.post);
-
-        this.$storeLikedPost(this.post);
       } else {
         this.postsStore.dislike(this.post);
-
-        this.$removeLikedPost(this.post);
       }
     }
   },
@@ -122,20 +115,7 @@ export default {
     ...mapStores(usePostStore),
 
     currentLikeIcon() {
-      return this.isLiked ? "likeFilled" : "like";
-    }
-  },
-
-  mounted() {
-    const storedData = localStorage.getItem("likedPosts");
-    if (storedData) {
-      const arrayOfData = JSON.parse(storedData);
-
-      arrayOfData.forEach(item => {
-        if (item.id === this.post.id) {
-          this.isLiked = true;
-        }
-      })
+      return this.post.isLiked ? "likeFilled" : "like";
     }
   }
 }

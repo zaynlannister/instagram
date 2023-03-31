@@ -25,10 +25,27 @@ import AccountRecommendation from "@/components/AccountRecommendation.vue";
 
 import { mapStores } from "pinia";
 import { usePostStore } from "@/stores/posts";
+import { watch } from "vue";
 
 export default {
   setup() {
-    const posts = usePostStore().postsArray;
+    const storedPosts = localStorage.getItem("posts");
+
+    let posts;
+
+    if (storedPosts) {
+      usePostStore().setNewValue()
+      posts = usePostStore().postsArray;
+    } else {
+      posts = usePostStore().postsArray;
+    }
+
+    watch(
+        () => posts,
+        (posts) => {
+          localStorage.setItem("posts", JSON.stringify(posts));
+        }, { deep: true }
+    )
 
     return { posts }
   },
@@ -40,43 +57,6 @@ export default {
 
   computed: {
     ...mapStores(usePostStore)
-  },
-
-  methods: {
-    getIndexOfArray(array, id) {
-      return array.findIndex(item => item.id === id);
-    },
-
-    syncLikedPosts() {
-      const storedData = localStorage.getItem("likedPosts");
-      if (storedData) {
-        const arrayOfData = JSON.parse(storedData);
-
-        this.posts.forEach(post => {
-          const requiredPost = arrayOfData.find(item => item.id === post.id);
-
-          if (requiredPost) {
-            post.likes = requiredPost.likes;
-          }
-        })
-      }
-    },
-
-    syncComments() {
-      const storedComments = this.$comments;
-
-      if (storedComments) {
-        storedComments.forEach(item => {
-          const needPostIndex = this.getIndexOfArray(this.posts, item.postId);
-          this.posts[needPostIndex].comments.push(item.comment);
-        })
-      }
-    }
-  },
-
-  mounted() {
-    this.syncLikedPosts();
-    this.syncComments();
   }
 }
 </script>
