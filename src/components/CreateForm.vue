@@ -26,7 +26,7 @@ export default {
   },
 
   computed: {
-    ...mapStores(usePostStore)
+    ...mapStores(usePostStore),
   },
 
   methods: {
@@ -36,8 +36,12 @@ export default {
       reader.readAsDataURL(file);
 
       reader.onloadend = () => {
-        this.postsStore.addPost(reader.result);
+        this.createPost(reader);
       }
+    },
+
+    createPost(reader) {
+      this.postsStore.addPost(reader.result);
     }
   }
 }

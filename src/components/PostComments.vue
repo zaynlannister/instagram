@@ -64,6 +64,7 @@ export default {
     addComment(comment) {
       const commentData = {
         id: Date.now(),
+        date: Date.now(),
         username: "username",
         text: comment,
         likes: 0,

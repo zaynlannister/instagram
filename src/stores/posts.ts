@@ -13,7 +13,8 @@ export const usePostStore = defineStore("posts", {
                     likes: 124,
                     description: "замечатльное фото...",
                     comments: [],
-                    isLiked: false
+                    isLiked: false,
+                    date: 1680427689454
                 },
 
                 {
@@ -23,7 +24,8 @@ export const usePostStore = defineStore("posts", {
                     likes: 12,
                     description: "ууу",
                     comments: [],
-                    isLiked: false
+                    isLiked: false,
+                    date: 1680427689454
                 },
 
                 {
@@ -33,7 +35,8 @@ export const usePostStore = defineStore("posts", {
                     likes: 566,
                     description: "spectacular view!",
                     comments: [],
-                    isLiked: false
+                    isLiked: false,
+                    date: 1680427689454
                 }
             ]
         }
@@ -48,7 +51,8 @@ export const usePostStore = defineStore("posts", {
                 likes: 0,
                 description: "",
                 comments: [],
-                isLiked: false
+                isLiked: false,
+                date: Date.now()
             }
 
             this.postsArray.push(newPost);

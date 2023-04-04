@@ -48,7 +48,7 @@
         Посмотреть все комментарии <span>{{ post.comments.length }}</span>
       </div>
       <div class="user-post__date">
-        20 часов назад
+        {{ getTimeAgo }}
       </div>
     </div>
 
@@ -108,7 +108,73 @@ export default {
       } else {
         this.postsStore.dislike(this.post);
       }
-    }
+    },
+
+    // getTimeAgo(postDate) {
+    //   const currentDate = new Date();
+    //   const seconds = Math.floor((currentDate.getTime() - postDate) / 1000);
+    //
+    //   const intervals = [
+    //     { label: "год", seconds: 31536000 },
+    //     { label: "месяц", seconds: 2592000 },
+    //     { label: "неделю", seconds: 604800 },
+    //     { label: "день", seconds: 86400 },
+    //     { label: "час", seconds: 3600 },
+    //     { label: "минуту", seconds: 60 },
+    //     { label: "секунду", seconds: 1 }
+    //   ];
+    //
+    //   for (let i = 0; i < intervals.length; i++) {
+    //     const interval = intervals[i];
+    //     const count = Math.floor(seconds / interval.seconds);
+    //
+    //     if (count >= 1) {
+    //       let label = interval.label;
+    //       if (interval.label === "год") {
+    //         if (count === 1) {
+    //           label = "год"
+    //         } else if (count > 4) {
+    //           label = "лет"
+    //         } else {
+    //           label = "года"
+    //         }
+    //       }
+    //       if (interval.label === "месяц") {
+    //         label = count > 4 ? "месяцев" : "месяц";
+    //       }
+    //       if (interval.label === "неделю") {
+    //         label = count > 4 ? "недель" : "неделю";
+    //       }
+    //       if (interval.label === "день") {
+    //         if (count < 4) {
+    //           label = "дня"
+    //         } else if (count > 4) {
+    //           label = "дней"
+    //         } else {
+    //           label = "день"
+    //         }
+    //       }
+    //       if (interval.label === "час") {
+    //         if (count > 1 && count < 5) {
+    //           label = "часа"
+    //         } else if (count > 5) {
+    //           label = "часов"
+    //         } else {
+    //           label = "час"
+    //         }
+    //       }
+    //       if (interval.label === "минуту") {
+    //         label = "мин";
+    //       }
+    //       if (interval.label === "секунду") {
+    //         label = "сек";
+    //       }
+    //       return `${count} ${label} назад`;
+    //     }
+    //   }
+    //
+    //   return "только что";
+    // }
   },
 
   computed: {
@@ -116,6 +182,81 @@ export default {
 
     currentLikeIcon() {
       return this.post.isLiked ? "likeFilled" : "like";
+    },
+
+    getTimeAgo() {
+      const currentDate = new Date();
+      const seconds = Math.floor((currentDate.getTime() - this.post.date) / 1000);
+
+      const intervals = [
+        { label: "год", seconds: 31536000 },
+        { label: "месяц", seconds: 2592000 },
+        { label: "неделю", seconds: 604800 },
+        { label: "день", seconds: 86400 },
+        { label: "час", seconds: 3600 },
+        { label: "минуту", seconds: 60 },
+        { label: "секунду", seconds: 1 }
+      ];
+
+      for (let i = 0; i < intervals.length; i++) {
+        const interval = intervals[i];
+        const count = Math.floor(seconds / interval.seconds);
+
+        if (count >= 1) {
+          let label = interval.label;
+          if (interval.label === "год") {
+            if (count === 1) {
+              label = "год"
+            } else if (count > 4) {
+              label = "лет"
+            } else {
+              label = "года"
+            }
+          }
+          if (interval.label === "месяц") {
+            if (count > 4) {
+              label = "месяцев"
+            } else {
+              label = "месяц"
+            }
+          }
+          if (interval.label === "неделю") {
+            if (count > 4) {
+              label = "недель"
+            } else {
+              label = "неделю"
+            }
+          }
+          if (interval.label === "день") {
+            if (count < 4) {
+              label = "дня"
+            } else if (count > 4) {
+              label = "дней"
+            } else {
+              label = "день"
+            }
+          }
+          if (interval.label === "час") {
+            if (count > 1 && count < 5) {
+              label = "часа"
+            } else if (count > 5) {
+              label = "часов"
+            } else {
+              label = "час"
+            }
+          }
+          if (interval.label === "минуту") {
+            label = "мин";
+          }
+          if (interval.label === "секунду") {
+            label = "сек";
+          }
+
+          return `${count} ${label} назад`;
+        }
+      }
+
+      return "только что";
     }
   }
 }
