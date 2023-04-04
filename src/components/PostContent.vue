@@ -4,6 +4,7 @@
       <div class="container">
         <div class="presentation-wrapper">
           <div class="presentation-section">
+            <stories-content/>
             <div class="presentation-publications">
               <my-post
                 v-for="post in posts"
@@ -22,6 +23,7 @@
 <script>
 import MyPost from "@/components/MyPost.vue";
 import AccountRecommendation from "@/components/AccountRecommendation.vue";
+import StoriesContent from "@/components/StoriesContent.vue";
 
 import { mapStores } from "pinia";
 import { usePostStore } from "@/stores/posts";
@@ -51,6 +53,7 @@ export default {
   },
 
   components: {
+    StoriesContent,
     MyPost,
     AccountRecommendation
   },
