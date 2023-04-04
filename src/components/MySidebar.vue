@@ -130,6 +130,7 @@ export default {
 
 <style lang="scss" scoped>
   .sidebar {
+    z-index: 5;
     position: fixed;
     width: 340px;
     border-right: 1px solid #dbdbdb;

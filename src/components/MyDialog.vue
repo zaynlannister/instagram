@@ -31,6 +31,7 @@ export default {
 
 <style lang="scss" scoped>
 .dialog {
+  z-index: 6;
   position: fixed;
   background-color: rgba(58, 58, 58, 0.8);
   top: 0;
