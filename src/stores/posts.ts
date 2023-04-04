@@ -1,6 +1,4 @@
 import { defineStore } from "pinia";
-import {state} from "vue-tsc/out/shared";
-import {watch} from "vue";
 
 export const usePostStore = defineStore("posts", {
     state: () => {
