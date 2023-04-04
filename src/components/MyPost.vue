@@ -228,7 +228,7 @@ export default {
             }
           }
           if (interval.label === "день") {
-            if (count < 4) {
+            if (count < 4 && count !== 1) {
               label = "дня"
             } else if (count > 4) {
               label = "дней"

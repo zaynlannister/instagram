@@ -23,7 +23,7 @@ export const usePostStore = defineStore("posts", {
                     description: "ууу",
                     comments: [],
                     isLiked: false,
-                    date: 1680427689454
+                    date: 1680487699454
                 },
 
                 {
@@ -34,7 +34,7 @@ export const usePostStore = defineStore("posts", {
                     description: "spectacular view!",
                     comments: [],
                     isLiked: false,
-                    date: 1680427689454
+                    date: 1680487699454
                 }
             ]
         }
