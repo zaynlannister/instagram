@@ -37,6 +37,8 @@ export default {
 
       reader.onloadend = () => {
         this.createPost(reader);
+
+        this.$emit("closeForm");
       }
     },
 

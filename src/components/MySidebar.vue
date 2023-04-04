@@ -32,6 +32,7 @@
   >
     <create-form
         v-if="createFormShow"
+        @closeForm="routeCreateForm"
     />
   </my-dialog>
 </template>
@@ -112,8 +113,8 @@ export default {
 
     routeCreateForm() {
       this.createFormShow = false;
-      router.push("/")
-      this.activePage = "Главная"
+      router.push("/");
+      this.activePage = "Главная";
     }
   },
 
