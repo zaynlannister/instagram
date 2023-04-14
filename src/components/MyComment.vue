@@ -2,7 +2,7 @@
   <div>
     <div class="comments__content-comment">
       <div class="comments__content-image">
-        <img src="src/assets/user__image.png">
+        <img src="@/assets/user__image.png">
       </div>
       <div class="comments__content-wrapper">
         <div class="comments-user">

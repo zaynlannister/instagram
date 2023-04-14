@@ -10,7 +10,7 @@
       <div class="comments">
         <div class="user-post__details comments__user-details">
           <div class="user-post__acc-image">
-            <img src="src/assets/user__image.png">
+            <img src="@/assets/user__image.png">
           </div>
           <div class="user-post__username">
             username
